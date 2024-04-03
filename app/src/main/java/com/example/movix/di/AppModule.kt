@@ -1,4 +1,7 @@
 package com.example.movix.di
+import android.app.Application
+import androidx.room.Room
+import com.example.movix.movie_list.data.local.Database
 import com.example.movix.movie_list.data.remote.Api
 import dagger.Module
 import dagger.Provides
@@ -31,5 +34,15 @@ object AppModule{
             .client(client)
             .build()
             .create(Api::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesDatabase(app: Application): Database{
+        return Room.databaseBuilder(
+            app,
+            Database::class.java,
+            "Database.db"
+        ).build()
     }
 }

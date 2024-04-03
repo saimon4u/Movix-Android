@@ -1,5 +1,6 @@
 package com.example.movix.movie_list.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movix.movie_list.domain.repository.Repository
@@ -23,8 +24,8 @@ class HomeViewModel @Inject constructor(
     val homeState = _homeState.asStateFlow()
 
     init {
-        getPopular(true, Category.MOVIE)
-        getRated(true, Category.SHOW)
+        getPopular(false, Category.MOVIE)
+        getRated(false, Category.SHOW)
     }
 
 
@@ -64,6 +65,44 @@ class HomeViewModel @Inject constructor(
                         getRated(true, Category.MOVIE)
                     }else{
                         getRated(true, Category.SHOW)
+                    }
+                }
+            }
+            is HomeEvents.Toggle ->{
+                when(event.category){
+                    Category.SHOW ->{
+                        if(event.list == "Popular"){
+                            _homeState.update {
+                                it.copy(
+                                    isPopularShow = true,
+                                    isPopularMovie = false,
+                                )
+                            }
+                        }else{
+                            _homeState.update {
+                                it.copy(
+                                    isRatedShow = true,
+                                    isRatedMovie = false,
+                                )
+                            }
+                        }
+                    }
+                    Category.MOVIE->{
+                        if(event.list == "Popular"){
+                            _homeState.update {
+                                it.copy(
+                                    isPopularMovie = true,
+                                    isPopularShow = false,
+                                )
+                            }
+                        }else{
+                            _homeState.update {
+                                it.copy(
+                                    isRatedMovie = true,
+                                    isRatedShow = false
+                                )
+                            }
+                        }
                     }
                 }
             }

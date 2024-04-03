@@ -31,16 +31,16 @@ fun Header(
     modifier: Modifier
 ){
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .background(Maastricht_Blue.copy(.4f)),
+            .background(Color.Black.copy(.3f)),
         horizontalArrangement = Arrangement.SpaceBetween,
     ){
         Box(
             modifier = Modifier
                 .padding(
                     start = 15.dp,
-                    top = 10.dp
+                    top = 7.dp
                 )
         ){
             Image(
@@ -53,7 +53,7 @@ fun Header(
                 .size(50.dp)
                 .padding(
                     end = 20.dp,
-                    top = 20.dp
+                    top = 10.dp
                 ),
             imageVector = Icons.Rounded.Search,
             contentDescription = "Search Icon"

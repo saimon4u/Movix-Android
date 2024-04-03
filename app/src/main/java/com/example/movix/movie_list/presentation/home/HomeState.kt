@@ -13,5 +13,9 @@ data class HomeState(
     val popularMovieList: List<Movie> = emptyList(),
     val popularShowList: List<Show> = emptyList(),
     val ratedMovieList: List<Movie> = emptyList(),
-    val ratedShowList: List<Show> = emptyList()
+    val ratedShowList: List<Show> = emptyList(),
+    val isPopularMovie: Boolean = true,
+    val isPopularShow: Boolean = false,
+    val isRatedMovie: Boolean = false,
+    val isRatedShow: Boolean = true,
 )
