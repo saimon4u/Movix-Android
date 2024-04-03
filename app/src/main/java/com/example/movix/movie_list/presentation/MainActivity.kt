@@ -39,27 +39,27 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val viewModel = hiltViewModel<HomeViewModel>()
                     val homeState = viewModel.homeState.collectAsState().value
-//                   Scaffold(
-//                       topBar = {
-//                           Header(
-//                               modifier = Modifier
-//                                   .fillMaxWidth()
-//                                   .height(50.dp),
-//                           )
-//                       },
-//                       bottomBar = {
-//                           BottomNavigationBar()
-//                       }
-//                   ) {
-//                       val padding = it
-//                       HomeScreen(
-//                           modifier = Modifier
-//                               .fillMaxSize()
-//                               .background(Maastricht_Blue),
-//                           homeState = homeState,
-//                           homeViewModel = viewModel
-//                       )
-//                   }
+                   Scaffold(
+                       topBar = {
+                           Header(
+                               modifier = Modifier
+                                   .fillMaxWidth()
+                                   .height(50.dp),
+                           )
+                       },
+                       bottomBar = {
+                           BottomNavigationBar()
+                       }
+                   ) {
+                       val padding = it
+                       HomeScreen(
+                           modifier = Modifier
+                               .fillMaxSize()
+                               .background(Maastricht_Blue),
+                           homeState = homeState,
+                           homeViewModel = viewModel
+                       )
+                   }
                 }
             }
         }

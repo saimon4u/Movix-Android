@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.movix.movie_list.domain.model.Movie
+import com.example.movix.movie_list.domain.util.Type
 import com.example.movix.movie_list.presentation.home.components.Banner
 import com.example.movix.movie_list.presentation.home.components.CircularProgressBar
 import com.example.movix.movie_list.presentation.home.components.Header
@@ -55,8 +56,9 @@ fun HomeScreen(
                 .height(300.dp)
                 .width(200.dp),
             homeState = homeState,
-            topic = "Popular",
-            homeViewModel = homeViewModel
+            topic = Type.POPULAR,
+            homeViewModel = homeViewModel,
+            onEvent = homeViewModel::onEvent
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -66,8 +68,9 @@ fun HomeScreen(
                 .height(300.dp)
                 .width(200.dp),
             homeState = homeState,
-            topic = "Rated",
-            homeViewModel = homeViewModel
+            topic = Type.TOP_RATED,
+            homeViewModel = homeViewModel,
+            onEvent = homeViewModel::onEvent
         )
         Spacer(modifier = Modifier.height(100.dp))
     }

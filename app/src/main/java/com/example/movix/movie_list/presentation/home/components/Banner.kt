@@ -39,7 +39,7 @@ fun Banner(
 ){
     var imgLink: String? = null
     if(homeState.popularMovieList.isNotEmpty()){
-        imgLink = homeState.popularMovieList[(0 until homeState.popularMovieList.size).random()].backdrop_path
+        imgLink = homeState.popularMovieList[random(0, homeState.popularMovieList.size-1)].backdrop_path
     }
 
     Box(
@@ -106,3 +106,5 @@ fun Banner(
         }
     }
 }
+
+fun random(from: Int, to: Int) = (Math.random() * (to - from) + from).toInt()

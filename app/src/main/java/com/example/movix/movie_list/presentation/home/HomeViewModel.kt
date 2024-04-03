@@ -59,6 +59,7 @@ class HomeViewModel @Inject constructor(
                         getPopular(true, Category.MOVIE)
                     }else{
                         getPopular(true, Category.SHOW)
+                        Log.e("TAG", "popular show loaded", )
                     }
                 }else{
                     if(event.category == Category.MOVIE){
@@ -71,13 +72,15 @@ class HomeViewModel @Inject constructor(
             is HomeEvents.Toggle ->{
                 when(event.category){
                     Category.SHOW ->{
-                        if(event.list == "Popular"){
+                        if(event.list == Type.POPULAR){
                             _homeState.update {
                                 it.copy(
                                     isPopularShow = true,
                                     isPopularMovie = false,
                                 )
                             }
+                            getPopular(false, Category.SHOW)
+//                            Log.e("TAG", "Popular Show Clicked" )
                         }else{
                             _homeState.update {
                                 it.copy(
@@ -85,16 +88,20 @@ class HomeViewModel @Inject constructor(
                                     isRatedMovie = false,
                                 )
                             }
+                            getRated(false, Category.SHOW)
+//                            Log.e("TAG", "Rated Show Clicked" )
                         }
                     }
                     Category.MOVIE->{
-                        if(event.list == "Popular"){
+                        if(event.list == Type.POPULAR){
                             _homeState.update {
                                 it.copy(
                                     isPopularMovie = true,
                                     isPopularShow = false,
                                 )
                             }
+                            getPopular(false, Category.MOVIE)
+//                            Log.e("TAG", "Popular Movie Clicked" )
                         }else{
                             _homeState.update {
                                 it.copy(
@@ -102,6 +109,8 @@ class HomeViewModel @Inject constructor(
                                     isRatedShow = false
                                 )
                             }
+                            getRated(false, Category.MOVIE)
+//                            Log.e("TAG", "Rated Movie Clicked" )
                         }
                     }
                 }
@@ -201,7 +210,7 @@ class HomeViewModel @Inject constructor(
                 repository.getShowList(
                     forceFetchFromRemote = forceFetchFromRemote,
                     type = Type.TOP_RATED,
-                    page = homeState.value.ratedMovieListPageNo
+                    page = homeState.value.ratedShowListPageNo
                 ).collectLatest {result->
                     when(result){
                         is Resource.Error -> {

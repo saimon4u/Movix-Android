@@ -102,8 +102,6 @@ class RepositoryImpl @Inject constructor(
 
             val localMovieList = database.dao.getMovieListByType(type)
             val shouldLoadLocalMovies = localMovieList.isNotEmpty() && !forceFetchFromRemote
-//            Log.e("TAG", localMovieList.size.toString() )
-//            Log.e("TAG", shouldLoadLocalMovies.toString() )
 
             if(shouldLoadLocalMovies){
                 emit(Resource.Success(

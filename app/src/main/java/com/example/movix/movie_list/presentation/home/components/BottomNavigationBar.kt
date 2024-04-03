@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Tv
 import androidx.compose.material.icons.rounded.Upcoming
@@ -27,6 +28,10 @@ fun BottomNavigationBar(
 //    onEvent: (MovieUiEvents) -> Unit
 ){
     val items = listOf(
+        BottomItem(
+            title = "Home",
+            icon = Icons.Rounded.Home
+        ),
         BottomItem(
             title = "Movie",
             icon = Icons.Rounded.Movie

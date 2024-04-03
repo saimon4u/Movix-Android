@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movix.movie_list.domain.util.Category
+import com.example.movix.movie_list.domain.util.Type
 import com.example.movix.movie_list.presentation.home.HomeEvents
 import com.example.movix.movie_list.presentation.home.HomeState
 
@@ -37,14 +38,14 @@ fun ToggleBar(
         horizontalArrangement = Arrangement.SpaceEvenly
     ){
         val moviesColor: Color = when(type){
-            "Popular" -> if(homeState.isPopularMovie) Color.Green else Color.White
-            "Rated" -> if(homeState.isRatedMovie) Color.Green else Color.White
+            Type.POPULAR -> if(homeState.isPopularMovie) Color.Green else Color.White
+            Type.TOP_RATED -> if(homeState.isRatedMovie) Color.Green else Color.White
             else -> {Color.White}
         }
 
         val showsColor: Color = when(type){
-            "Popular" -> if(homeState.isPopularShow) Color.Green else Color.White
-            "Rated" -> if(homeState.isRatedShow) Color.Green else Color.White
+            Type.POPULAR -> if(homeState.isPopularShow) Color.Green else Color.White
+            Type.TOP_RATED -> if(homeState.isRatedShow) Color.Green else Color.White
             else -> {Color.White}
         }
 

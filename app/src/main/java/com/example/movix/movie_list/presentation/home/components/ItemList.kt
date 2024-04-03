@@ -21,6 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movix.movie_list.domain.model.Movie
 import com.example.movix.movie_list.domain.model.Show
+import com.example.movix.movie_list.domain.util.Category
+import com.example.movix.movie_list.domain.util.Type
+import com.example.movix.movie_list.presentation.home.HomeEvents
 import com.example.movix.movie_list.presentation.home.HomeState
 import com.example.movix.movie_list.presentation.home.HomeViewModel
 
@@ -29,19 +32,20 @@ fun ItemList(
     modifier: Modifier,
     homeState: HomeState,
     topic: String,
-    homeViewModel: HomeViewModel
-//    onEvent: (HomeEvents) -> Unit
+    homeViewModel: HomeViewModel,
+    onEvent: (HomeEvents) -> Unit
 ) {
 
     when(topic){
-        "Popular" ->{
+       Type.POPULAR ->{
             if(homeState.isPopularMovie){
                 LoadMovies(
                     modifier = modifier,
                     list = homeState.popularMovieList,
                     topic = topic,
                     homeViewModel = homeViewModel,
-                    homeState = homeState
+                    homeState = homeState,
+                    onEvent = onEvent
                 )
             }else{
                 LoadShows(
@@ -49,18 +53,20 @@ fun ItemList(
                     list = homeState.popularShowList,
                     topic = topic,
                     homeViewModel = homeViewModel,
-                    homeState = homeState
+                    homeState = homeState,
+                    onEvent = onEvent
                 )
             }
         }
-        "Rated" ->{
+        Type.TOP_RATED ->{
             if(homeState.isRatedMovie){
                 LoadMovies(
                     modifier = modifier,
                     list = homeState.ratedMovieList,
                     topic = topic,
                     homeViewModel = homeViewModel,
-                    homeState = homeState
+                    homeState = homeState,
+                    onEvent = onEvent
                 )
             }else{
                 LoadShows(
@@ -68,7 +74,8 @@ fun ItemList(
                     list = homeState.ratedShowList,
                     topic = topic,
                     homeViewModel = homeViewModel,
-                    homeState = homeState
+                    homeState = homeState,
+                    onEvent = onEvent
                 )
             }
         }
@@ -82,7 +89,8 @@ fun LoadMovies(
     list: List<Movie>,
     topic: String,
     homeViewModel: HomeViewModel,
-    homeState: HomeState
+    homeState: HomeState,
+    onEvent: (HomeEvents) -> Unit
 ){
     if (list.isEmpty()) {
         Box(
@@ -102,7 +110,7 @@ fun LoadMovies(
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Text(
-                text = topic,
+                text = if(topic == Type.POPULAR) "Popular" else "Top Rated",
                 fontSize = 20.sp,
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold
@@ -125,15 +133,21 @@ fun LoadMovies(
                 list.size,
             ){index ->
                 Item(
-                    imgPath = list[index].backdrop_path,
+                    imgPath = list[index].poster_path,
                     title = list[index].title,
                     date = list[index].release_date,
                     percentage = list[index].vote_average.toFloat()/10
                 )
                 Spacer(modifier = Modifier.width(15.dp))
-//                if (index >= movieState.popularMovieList.size - 1 && !movieState.isLoading){
-//                    onEvent(MovieUiEvents.Paginate(Category.POPULAR))
-//                }
+                if(topic == Type.POPULAR){
+                    if(index >= homeState.popularMovieList.size-1 && !homeState.isLoading){
+                        onEvent(HomeEvents.Paginate(topic, Category.MOVIE))
+                    }
+                }else{
+                    if(index >= homeState.ratedMovieList.size-1 && !homeState.isLoading){
+                        onEvent(HomeEvents.Paginate(topic, Category.MOVIE))
+                    }
+                }
             }
         }
     }
@@ -145,7 +159,8 @@ fun LoadShows(
     list: List<Show>,
     topic: String,
     homeViewModel: HomeViewModel,
-    homeState: HomeState
+    homeState: HomeState,
+    onEvent: (HomeEvents) -> Unit
     ){
     if (list.isEmpty()) {
         Box(
@@ -165,7 +180,7 @@ fun LoadShows(
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Text(
-                text = topic,
+                text = if(topic == Type.POPULAR) "Popular" else "Top Rated",
                 fontSize = 20.sp,
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold
@@ -188,15 +203,21 @@ fun LoadShows(
                 list.size,
             ){index ->
                 Item(
-                    imgPath = list[index].backdrop_path,
+                    imgPath = list[index].poster_path,
                     title = list[index].name,
                     date = list[index].first_air_date,
                     percentage = list[index].vote_average.toFloat()/10
                 )
                 Spacer(modifier = Modifier.width(15.dp))
-//                if (index >= movieState.popularMovieList.size - 1 && !movieState.isLoading){
-//                    onEvent(MovieUiEvents.Paginate(Category.POPULAR))
-//                }
+                if(topic == Type.POPULAR){
+                    if(index >= homeState.popularShowList.size-1 && !homeState.isLoading){
+                        onEvent(HomeEvents.Paginate(topic, Category.SHOW))
+                    }
+                }else{
+                    if(index >= homeState.ratedShowList.size-1 && !homeState.isLoading){
+                        onEvent(HomeEvents.Paginate(topic, Category.SHOW))
+                    }
+                }
             }
         }
     }
