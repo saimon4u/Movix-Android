@@ -2,6 +2,7 @@ package com.example.movix.movie_list.data.remote
 
 import com.example.movix.movie_list.data.remote.response.MovieListDto
 import com.example.movix.movie_list.data.remote.response.ShowListDto
+import com.example.movix.movie_list.presentation.movie.util.SortType
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -20,6 +21,14 @@ interface Api {
         @Query("page") page: Int,
         @Query("api_key") apiKey: String = API_KEY
     ): ShowListDto
+
+    @GET("discover/movie")
+    suspend fun getDiscoverMovieList(
+        @Query("page") page: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("sort_by") sortBy: String,
+        @Query("with_genres") genre: Int,
+    ): MovieListDto
 
     companion object{
         const val BASE_URL = "https://api.themoviedb.org/3/"

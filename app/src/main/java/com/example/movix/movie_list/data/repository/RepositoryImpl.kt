@@ -18,75 +18,6 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-//class RepositoryImpl @Inject constructor(
-//    private val api: Api
-//): Repository{
-//    override suspend fun getMovieList(
-//        forceFetchFromRemote: Boolean,
-//        type: String,
-//        page: Int
-//    ): Flow<Resource<List<Movie>>> {
-//        return flow {
-//            emit(Resource.Loading(true))
-//
-//            val movieListFromApi = try{
-//                api.getMovieList(type, page)
-//            }catch (e: IOException){
-//                e.printStackTrace()
-//                emit(Resource.Error("Something went wrong..."))
-//                return@flow
-//            }catch (e: HttpException){
-//                e.printStackTrace()
-//                emit(Resource.Error("Something went wrong..."))
-//                return@flow
-//            }catch (e: Exception){
-//                e.printStackTrace()
-//                emit(Resource.Error("Something went wrong..."))
-//                return@flow
-//            }
-//
-//            emit(Resource.Success(movieListFromApi.results.map { movieDto ->
-//                movieDto.toMovie(type)
-//            }))
-//
-//            emit(Resource.Loading(false))
-//        }
-//    }
-//
-//    override suspend fun getShowList(
-//        forceFetchFromRemote: Boolean,
-//        type: String,
-//        page: Int
-//    ): Flow<Resource<List<Show>>> {
-//        return flow {
-//            emit(Resource.Loading(true))
-//
-//            val showListFromApi = try{
-//                api.getShowList(type, page)
-//            }catch (e: IOException){
-//                e.printStackTrace()
-//                emit(Resource.Error("Something went wrong..."))
-//                return@flow
-//            }catch (e: HttpException){
-//                e.printStackTrace()
-//                emit(Resource.Error("Something went wrong..."))
-//                return@flow
-//            }catch (e: Exception){
-//                e.printStackTrace()
-//                emit(Resource.Error("Something went wrong..."))
-//                return@flow
-//            }
-//
-//            emit(Resource.Success(showListFromApi.results.map { showDto ->
-//                showDto.toShow(type)
-//            }))
-//
-//            emit(Resource.Loading(false))
-//        }
-//    }
-//
-//}
-
 
 class RepositoryImpl @Inject constructor(
     private val api: Api,
@@ -194,6 +125,66 @@ class RepositoryImpl @Inject constructor(
 
             emit(Resource.Success(
                 showEntities.map { it.toShow(type) }
+            ))
+
+            emit(Resource.Loading(false))
+        }
+    }
+
+    override suspend fun getDiscoverMovies(
+        forceFetchFromRemote: Boolean,
+        page: Int,
+        sortBy: String,
+        genre: Int,
+        type: String
+    ): Flow<Resource<List<Movie>>> {
+        return flow {
+            emit(Resource.Loading(true))
+
+
+            val localMovieList = database.dao.getMovieListByType(type)
+            val shouldLoadLocalMovies = localMovieList.isNotEmpty() && !forceFetchFromRemote
+
+            if(shouldLoadLocalMovies){
+                emit(Resource.Success(
+                    data = localMovieList.map {
+                        it.toMovie(type)
+                    }
+                ))
+                emit(Resource.Loading(false))
+                return@flow
+            }
+
+            val movieListFromApi = try{
+                api.getDiscoverMovieList(
+                    page = page,
+                    sortBy = sortBy,
+                    genre = genre
+                )
+            }catch (e: IOException){
+                e.printStackTrace()
+                emit(Resource.Error("Something went wrong..."))
+                return@flow
+            }catch (e: HttpException){
+                e.printStackTrace()
+                emit(Resource.Error("Something went wrong..."))
+                return@flow
+            }catch (e: Exception){
+                e.printStackTrace()
+                emit(Resource.Error("Something went wrong..."))
+                return@flow
+            }
+
+            val movieEntities = movieListFromApi.results.let{
+                it.map {movieDto->
+                    movieDto.toMovieEntity(type)
+                }
+            }
+
+            database.dao.upsertMovieList(movieEntities)
+
+            emit(Resource.Success(
+                movieEntities.map { it.toMovie(type) }
             ))
 
             emit(Resource.Loading(false))
