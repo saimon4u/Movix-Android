@@ -1,6 +1,7 @@
 package com.example.movix.movie_list.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -47,6 +48,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(50.dp),
+                                navHostController = navController
                             )
                         },
                         bottomBar = {
@@ -59,7 +61,7 @@ class MainActivity : ComponentActivity() {
                         val padding = it
                         NavHost(
                             navController = navController,
-                            startDestination = "Movie"
+                            startDestination = "Home"
                         ){
                             composable("Home"){
                                 HomeScreen(
@@ -68,7 +70,6 @@ class MainActivity : ComponentActivity() {
                                         .background(Maastricht_Blue),
                                     homeState = homeState,
                                     homeViewModel = viewModel,
-                                    navHostController = navController
                                 )
                             }
                             composable("Movie"){

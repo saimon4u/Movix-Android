@@ -34,7 +34,6 @@ fun HomeScreen(
     modifier: Modifier,
     homeState: HomeState,
     homeViewModel: HomeViewModel,
-    navHostController: NavHostController
 ){
     val scrollState = rememberScrollState()
 
@@ -50,7 +49,7 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .height(350.dp)
                 .background(Maastricht_Blue.copy(.4f)),
-            homeState = homeState
+            homeState = homeState,
         )
 
         Spacer(modifier = Modifier.height(20.dp))
