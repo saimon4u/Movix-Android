@@ -20,12 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.movix.movie_list.presentation.home.HomeEvents
 import com.example.movix.ui.theme.Maastricht_Blue
 
 @Composable
 fun BottomNavigationBar(
-//    bottomNavController: NavHostController,
-//    onEvent: (MovieUiEvents) -> Unit
+    bottomNavController: NavHostController,
+    onEvent: (HomeEvents) -> Unit
 ){
     val items = listOf(
         BottomItem(
@@ -59,15 +60,21 @@ fun BottomNavigationBar(
                         selected.intValue = index
                         when(selected.intValue){
                             0->{
-//                                onEvent(MovieUiEvents.Navigate)
-//                                bottomNavController.popBackStack()
-//                                bottomNavController.navigate(Screen.PopularMovieList.route)
+                                onEvent(HomeEvents.Navigate)
+                                bottomNavController.popBackStack()
+                                bottomNavController.navigate("Home")
                             }
                             1->{
-//                                onEvent(MovieUiEvents.Navigate)
-//                                bottomNavController.popBackStack()
-//                                bottomNavController.navigate(Screen.UpcomingMovieList.route)
+                                onEvent(HomeEvents.Navigate)
+                                bottomNavController.popBackStack()
+                                bottomNavController.navigate("Movie")
                             }
+                            2->{
+                                onEvent(HomeEvents.Navigate)
+                                bottomNavController.popBackStack()
+                                bottomNavController.navigate("Show")
+                            }
+
                         }
                     },
                     icon = {

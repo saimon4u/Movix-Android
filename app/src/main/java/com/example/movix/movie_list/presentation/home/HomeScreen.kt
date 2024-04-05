@@ -16,20 +16,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.movix.movie_list.domain.model.Movie
 import com.example.movix.movie_list.domain.util.Type
+import com.example.movix.movie_list.presentation.home.components.AppInfo
 import com.example.movix.movie_list.presentation.home.components.Banner
+import com.example.movix.movie_list.presentation.home.components.BottomNavigationBar
 import com.example.movix.movie_list.presentation.home.components.CircularProgressBar
 import com.example.movix.movie_list.presentation.home.components.Header
 import com.example.movix.movie_list.presentation.home.components.ItemList
 import com.example.movix.movie_list.presentation.home.components.ToggleBar
+import com.example.movix.ui.theme.Blue_Charcoal
 import com.example.movix.ui.theme.Maastricht_Blue
 
 @Composable
 fun HomeScreen(
     modifier: Modifier,
     homeState: HomeState,
-    homeViewModel: HomeViewModel
+    homeViewModel: HomeViewModel,
+    navHostController: NavHostController
 ){
     val scrollState = rememberScrollState()
 
@@ -72,6 +77,15 @@ fun HomeScreen(
             homeViewModel = homeViewModel,
             onEvent = homeViewModel::onEvent
         )
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(20.dp))
+
+        AppInfo(
+            modifier = Modifier
+                .height(300.dp)
+                .fillMaxWidth()
+                .background(Maastricht_Blue)
+        )
+        
+        Spacer(modifier = Modifier.height(80.dp))
     }
 }

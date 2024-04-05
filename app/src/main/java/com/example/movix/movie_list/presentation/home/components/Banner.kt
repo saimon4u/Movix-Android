@@ -39,7 +39,8 @@ fun Banner(
 ){
     var imgLink: String? = null
     if(homeState.popularMovieList.isNotEmpty()){
-        imgLink = homeState.popularMovieList[random(0, homeState.popularMovieList.size-1)].backdrop_path
+        val index = (0 until homeState.popularMovieList.size).random()
+        imgLink = homeState.popularMovieList[index].backdrop_path
     }
 
     Box(
