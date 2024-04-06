@@ -1,9 +1,8 @@
 package com.example.movix.movie_list.presentation.movie
 
 import com.example.movix.movie_list.domain.model.Movie
-import com.example.movix.movie_list.domain.model.Show
 import com.example.movix.movie_list.presentation.movie.util.Genre
-import com.example.movix.movie_list.presentation.movie.util.SortType
+import com.example.movix.core.util.SortType
 
 data class MovieState(
     val isLoading: Boolean = false,

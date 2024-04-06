@@ -82,7 +82,11 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable("Show"){
-                                ShowScreen()
+                                ShowScreen(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .background(Maastricht_Blue)
+                                )
                             }
                         }
                     }

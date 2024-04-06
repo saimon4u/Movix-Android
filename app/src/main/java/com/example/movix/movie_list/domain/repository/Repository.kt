@@ -25,4 +25,12 @@ interface Repository {
         genre: Int,
         type: String
     ): Flow<Resource<List<Movie>>>
+
+    suspend fun getDiscoverShows(
+        forceFetchFromRemote: Boolean,
+        page: Int,
+        sortBy: String,
+        genre: Int,
+        type: String
+    ): Flow<Resource<List<Show>>>
 }

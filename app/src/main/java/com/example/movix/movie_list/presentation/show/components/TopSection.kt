@@ -1,4 +1,4 @@
-package com.example.movix.movie_list.presentation.movie.components
+package com.example.movix.movie_list.presentation.show.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,16 +27,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movix.movie_list.presentation.movie.MovieEvents
-import com.example.movix.movie_list.presentation.movie.util.Genre
+import com.example.movix.movie_list.presentation.show.util.Genre
 import com.example.movix.core.util.SortType
+import com.example.movix.movie_list.presentation.show.ShowEvents
 import com.example.movix.ui.theme.Blue_Charcoal
 
 @Composable
 fun TopSection(
     modifier: Modifier,
     screenHeight: Dp,
-    onEvent: (MovieEvents) -> Unit
+    onEvent: (ShowEvents) -> Unit
 ){
 
     var genreMenu by remember {
@@ -52,7 +52,7 @@ fun TopSection(
     }
 
     var genre by remember {
-        mutableIntStateOf(Genre.HORROR)
+        mutableIntStateOf(Genre.SCI_FI)
     }
 
     var isGenreSelected by remember{
@@ -70,7 +70,7 @@ fun TopSection(
     ) {
         Spacer(modifier = Modifier.height(70.dp))
         Text(
-            text = "Explore Movies",
+            text = "Explore TV Shows",
             color = Color.White,
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold
@@ -132,7 +132,7 @@ fun TopSection(
             },
             onClick = {
                 sortOption = SortType.Popularity_Ascending
-                onEvent(MovieEvents.Sort(sortOption))
+                onEvent(ShowEvents.Sort(sortOption))
                 sortMenu = false
                 isSortSelected = true
             }
@@ -147,7 +147,7 @@ fun TopSection(
             },
             onClick = {
                 sortOption = SortType.Popularity_Descending
-                onEvent(MovieEvents.Sort(sortOption))
+                onEvent(ShowEvents.Sort(sortOption))
                 sortMenu = false
                 isSortSelected = true
             }
@@ -162,7 +162,7 @@ fun TopSection(
             },
             onClick = {
                 sortOption = SortType.Rating_Ascending
-                onEvent(MovieEvents.Sort(sortOption))
+                onEvent(ShowEvents.Sort(sortOption))
                 sortMenu = false
                 isSortSelected = true
             }
@@ -177,7 +177,7 @@ fun TopSection(
             },
             onClick = {
                 sortOption = SortType.Rating_Descending
-                onEvent(MovieEvents.Sort(sortOption))
+                onEvent(ShowEvents.Sort(sortOption))
                 sortMenu = false
                 isSortSelected = true
             }
@@ -192,7 +192,7 @@ fun TopSection(
             },
             onClick = {
                 sortOption = SortType.Release_Date_Ascending
-                onEvent(MovieEvents.Sort(sortOption))
+                onEvent(ShowEvents.Sort(sortOption))
                 sortMenu = false
                 isSortSelected = true
             }
@@ -207,7 +207,7 @@ fun TopSection(
             },
             onClick = {
                 sortOption = SortType.Release_Date_Descending
-                onEvent(MovieEvents.Sort(sortOption))
+                onEvent(ShowEvents.Sort(sortOption))
                 sortMenu = false
                 isSortSelected = true
             }
@@ -222,7 +222,7 @@ fun TopSection(
                 },
             onClick = {
                 sortOption = SortType.Title_Ascending
-                onEvent(MovieEvents.Sort(sortOption))
+                onEvent(ShowEvents.Sort(sortOption))
                 sortMenu = false
                 isSortSelected = true
             }
@@ -237,7 +237,7 @@ fun TopSection(
             },
             onClick = {
                 sortOption = SortType.Title_Descending
-                onEvent(MovieEvents.Sort(sortOption))
+                onEvent(ShowEvents.Sort(sortOption))
                 sortMenu = false
                 isSortSelected = true
             }
@@ -262,22 +262,7 @@ fun TopSection(
             },
             onClick = {
                 genre = Genre.ACTION
-                onEvent(MovieEvents.SelectGenre(genre))
-                genreMenu = false
-                isGenreSelected = true
-            }
-        )
-        DropdownMenuItem(
-            text = {
-                Text(
-                    text = "ADVENTURE",
-                    fontSize = 14.sp,
-                    color = Color.White,
-                )
-            },
-            onClick = {
-                genre = Genre.ADVENTURE
-                onEvent(MovieEvents.SelectGenre(genre))
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -292,7 +277,7 @@ fun TopSection(
             },
             onClick = {
                 genre = Genre.ANIMATION
-                onEvent(MovieEvents.SelectGenre(genre))
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -307,7 +292,7 @@ fun TopSection(
             },
             onClick = {
                 genre = Genre.COMEDY
-                onEvent(MovieEvents.SelectGenre(genre))
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -322,7 +307,7 @@ fun TopSection(
             },
             onClick = {
                 genre = Genre.CRIME
-                onEvent(MovieEvents.SelectGenre(genre))
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -337,22 +322,7 @@ fun TopSection(
             },
             onClick = {
                 genre = Genre.DOCUMENTARY
-                onEvent(MovieEvents.SelectGenre(genre))
-                genreMenu = false
-                isGenreSelected = true
-            }
-        )
-        DropdownMenuItem(
-            text = {
-                Text(
-                    text = "DRAMA",
-                    fontSize = 14.sp,
-                    color = Color.White,
-                )
-            },
-            onClick = {
-                genre = Genre.DRAMA
-                onEvent(MovieEvents.SelectGenre(genre))
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -367,7 +337,7 @@ fun TopSection(
             },
             onClick = {
                 genre = Genre.FAMILY
-                onEvent(MovieEvents.SelectGenre(genre))
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -375,14 +345,14 @@ fun TopSection(
         DropdownMenuItem(
             text = {
                 Text(
-                    text = "FANTASY",
+                    text = "KIDS",
                     fontSize = 14.sp,
                     color = Color.White,
                 )
             },
             onClick = {
-                genre = Genre.FANTASY
-                onEvent(MovieEvents.SelectGenre(genre))
+                genre = Genre.KIDS
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -390,14 +360,14 @@ fun TopSection(
         DropdownMenuItem(
             text = {
                 Text(
-                    text = "HISTORY",
+                    text = "MYSTERY",
                     fontSize = 14.sp,
                     color = Color.White,
                 )
             },
             onClick = {
-                genre = Genre.HISTORY
-                onEvent(MovieEvents.SelectGenre(genre))
+                genre = Genre.MYSTERY
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -405,14 +375,14 @@ fun TopSection(
         DropdownMenuItem(
             text = {
                 Text(
-                    text = "HORROR",
+                    text = "SCI-FI",
                     fontSize = 14.sp,
                     color = Color.White,
                 )
             },
             onClick = {
-                genre = Genre.HORROR
-                onEvent(MovieEvents.SelectGenre(genre))
+                genre = Genre.SCI_FI
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -420,59 +390,14 @@ fun TopSection(
         DropdownMenuItem(
             text = {
                 Text(
-                    text = "ROMANCE",
+                    text = "POLITICS",
                     fontSize = 14.sp,
                     color = Color.White,
                 )
             },
             onClick = {
-                genre = Genre.ROMANCE
-                onEvent(MovieEvents.SelectGenre(genre))
-                genreMenu = false
-                isGenreSelected = true
-            }
-        )
-        DropdownMenuItem(
-            text = {
-                Text(
-                    text = "SCIENCE_FICTION",
-                    fontSize = 14.sp,
-                    color = Color.White,
-                )
-            },
-            onClick = {
-                genre = Genre.SCIENCE_FICTION
-                onEvent(MovieEvents.SelectGenre(genre))
-                genreMenu = false
-                isGenreSelected = true
-            }
-        )
-        DropdownMenuItem(
-            text = {
-                Text(
-                    text = "THRILLER",
-                    fontSize = 14.sp,
-                    color = Color.White,
-                )
-            },
-            onClick = {
-                genre = Genre.THRILLER
-                onEvent(MovieEvents.SelectGenre(genre))
-                genreMenu = false
-                isGenreSelected = true
-            }
-        )
-        DropdownMenuItem(
-            text = {
-                Text(
-                    text = "WESTERN",
-                    fontSize = 14.sp,
-                    color = Color.White,
-                )
-            },
-            onClick = {
-                genre = Genre.WESTERN
-                onEvent(MovieEvents.SelectGenre(genre))
+                genre = Genre.POLITICS
+                onEvent(ShowEvents.SelectGenre(genre))
                 genreMenu = false
                 isGenreSelected = true
             }
@@ -483,21 +408,16 @@ fun TopSection(
 }
 
 private val genreMap: Map<Int, String> = mapOf(
-    28 to "Action",
-    12 to "Adventure",
+    10759 to "Action & Adventure",
     16 to "Animation",
     35 to "Comedy",
     80 to "Crime",
     99 to "Documentary",
-    18 to "Drama",
     10751 to "Family",
-    14 to "Fantasy",
-    36 to "History",
-    27 to "Horror",
-    10749 to "Romance",
-    878 to "Science Fiction",
-    53 to "Thriller",
-    37 to "Western"
+    10762 to "Kids",
+    9648 to "Mystery",
+    10765 to "Sci-Fi & Fantasy",
+    10768 to "War & Politics"
 )
 
 

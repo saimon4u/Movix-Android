@@ -191,4 +191,65 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
+
+    override suspend fun getDiscoverShows(
+        forceFetchFromRemote: Boolean,
+        page: Int,
+        sortBy: String,
+        genre: Int,
+        type: String
+    ): Flow<Resource<List<Show>>> {
+        return flow {
+            emit(Resource.Loading(true))
+
+
+            val localShowList = database.dao.getShowListByType(type)
+            val shouldLoadLocalShows = localShowList.isNotEmpty() && !forceFetchFromRemote
+
+            if(shouldLoadLocalShows){
+                emit(Resource.Success(
+                    data = localShowList.map {
+                        it.toShow(type)
+                    }
+                ))
+                emit(Resource.Loading(false))
+                return@flow
+            }
+
+            val showListFromApi = try{
+                api.getDiscoverShowList(
+                    page = page,
+                    sortBy = sortBy,
+                    genre = genre
+                )
+            }catch (e: IOException){
+                e.printStackTrace()
+                emit(Resource.Error("Something went wrong..."))
+                return@flow
+            }catch (e: HttpException){
+                e.printStackTrace()
+                emit(Resource.Error("Something went wrong..."))
+                return@flow
+            }catch (e: Exception){
+                e.printStackTrace()
+                emit(Resource.Error("Something went wrong..."))
+                return@flow
+            }
+
+            val showEntities = showListFromApi.results.let{
+                it.map {showDto->
+                    showDto.toShowEntity(type)
+                }
+            }
+
+            database.dao.upsertShowList(showEntities)
+
+            emit(Resource.Success(
+                showEntities.map { it.toShow(type) }
+            ))
+
+            emit(Resource.Loading(false))
+        }
+    }
+
 }

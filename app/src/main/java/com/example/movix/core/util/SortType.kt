@@ -1,4 +1,4 @@
-package com.example.movix.movie_list.presentation.movie.util
+package com.example.movix.core.util
 
 object SortType {
     const val Popularity_Descending = "popularity.desc"
