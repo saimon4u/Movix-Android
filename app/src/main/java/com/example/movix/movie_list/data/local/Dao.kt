@@ -16,7 +16,7 @@ interface Dao {
     suspend fun getMovieListByType(type: String): List<MovieEntity>
 
     @Upsert
-    suspend fun upsertShowList(movieList: List<ShowEntity>)
+    suspend fun upsertShowList(showList: List<ShowEntity>)
 
     @Query("SELECT * FROM ShowEntity WHERE id = :id")
     suspend fun getShowById(id: Int): ShowEntity

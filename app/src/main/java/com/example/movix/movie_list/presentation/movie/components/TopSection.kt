@@ -14,6 +14,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -51,7 +52,14 @@ fun TopSection(
     }
 
     var genre by remember {
-        mutableStateOf(Genre.HORROR)
+        mutableIntStateOf(Genre.HORROR)
+    }
+
+    var isGenreSelected by remember{
+        mutableStateOf(false)
+    }
+    var isSortSelected by remember {
+        mutableStateOf(false)
     }
 
     Column(
@@ -75,7 +83,7 @@ fun TopSection(
                 .background(Blue_Charcoal),
         ){
             Text(
-                text = "Select Genre",
+                text = if(isGenreSelected) genreMap[genre]!! else "Select Genre",
                 fontSize = 18.sp,
                 color = Color.White,
                 modifier = Modifier
@@ -95,7 +103,7 @@ fun TopSection(
                 .background(Blue_Charcoal),
         ){
             Text(
-                text = "Select Sorting Option",
+                text = if(isSortSelected) sortingOptionsMap[sortOption]!! else "Select Sorting Option",
                 fontSize = 18.sp,
                 color = Color.White,
                 modifier = Modifier
@@ -126,6 +134,7 @@ fun TopSection(
                 sortOption = SortType.Popularity_Ascending
                 onEvent(MovieEvents.Sort(sortOption))
                 sortMenu = false
+                isSortSelected = true
             }
         )
         DropdownMenuItem(
@@ -140,6 +149,7 @@ fun TopSection(
                 sortOption = SortType.Popularity_Descending
                 onEvent(MovieEvents.Sort(sortOption))
                 sortMenu = false
+                isSortSelected = true
             }
         )
         DropdownMenuItem(
@@ -154,6 +164,7 @@ fun TopSection(
                 sortOption = SortType.Rating_Ascending
                 onEvent(MovieEvents.Sort(sortOption))
                 sortMenu = false
+                isSortSelected = true
             }
         )
         DropdownMenuItem(
@@ -168,6 +179,7 @@ fun TopSection(
                 sortOption = SortType.Rating_Descending
                 onEvent(MovieEvents.Sort(sortOption))
                 sortMenu = false
+                isSortSelected = true
             }
         )
         DropdownMenuItem(
@@ -182,6 +194,7 @@ fun TopSection(
                 sortOption = SortType.Release_Date_Ascending
                 onEvent(MovieEvents.Sort(sortOption))
                 sortMenu = false
+                isSortSelected = true
             }
         )
         DropdownMenuItem(
@@ -196,6 +209,7 @@ fun TopSection(
                 sortOption = SortType.Release_Date_Descending
                 onEvent(MovieEvents.Sort(sortOption))
                 sortMenu = false
+                isSortSelected = true
             }
         )
         DropdownMenuItem(
@@ -210,6 +224,7 @@ fun TopSection(
                 sortOption = SortType.Title_Ascending
                 onEvent(MovieEvents.Sort(sortOption))
                 sortMenu = false
+                isSortSelected = true
             }
         )
         DropdownMenuItem(
@@ -224,6 +239,7 @@ fun TopSection(
                 sortOption = SortType.Title_Descending
                 onEvent(MovieEvents.Sort(sortOption))
                 sortMenu = false
+                isSortSelected = true
             }
         )
     }
@@ -248,6 +264,7 @@ fun TopSection(
                 genre = Genre.ACTION
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -262,6 +279,7 @@ fun TopSection(
                 genre = Genre.ADVENTURE
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -276,6 +294,7 @@ fun TopSection(
                 genre = Genre.ANIMATION
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -290,6 +309,7 @@ fun TopSection(
                 genre = Genre.COMEDY
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -304,6 +324,7 @@ fun TopSection(
                 genre = Genre.CRIME
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -318,6 +339,7 @@ fun TopSection(
                 genre = Genre.DOCUMENTARY
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -332,6 +354,7 @@ fun TopSection(
                 genre = Genre.DRAMA
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -346,6 +369,7 @@ fun TopSection(
                 genre = Genre.FAMILY
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -360,6 +384,7 @@ fun TopSection(
                 genre = Genre.FANTASY
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -374,6 +399,7 @@ fun TopSection(
                 genre = Genre.HISTORY
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -388,6 +414,7 @@ fun TopSection(
                 genre = Genre.HORROR
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -402,6 +429,7 @@ fun TopSection(
                 genre = Genre.ROMANCE
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -416,6 +444,7 @@ fun TopSection(
                 genre = Genre.SCIENCE_FICTION
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -430,6 +459,7 @@ fun TopSection(
                 genre = Genre.THRILLER
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
         DropdownMenuItem(
@@ -444,6 +474,7 @@ fun TopSection(
                 genre = Genre.WESTERN
                 onEvent(MovieEvents.SelectGenre(genre))
                 genreMenu = false
+                isGenreSelected = true
             }
         )
     }
@@ -470,7 +501,7 @@ private val genreMap: Map<Int, String> = mapOf(
 )
 
 
-val sortingOptionsMap: Map<String, String> = mapOf(
+private val sortingOptionsMap: Map<String, String> = mapOf(
     "popularity.desc" to "Popularity Descending",
     "popularity.asc" to "Popularity Ascending",
     "vote_average.asc" to "Rating Ascending",
