@@ -20,13 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.movix.movie_list.domain.util.Type
-import com.example.movix.movie_list.presentation.movie.components.Item
+import com.example.movix.movie_list.presentation.show.components.Item
 import com.example.movix.movie_list.presentation.show.components.TopSection
 
 @Composable
 fun ShowScreen(
     modifier: Modifier,
+    navController: NavHostController
 ){
 
     val configuration = LocalConfiguration.current
@@ -81,7 +83,9 @@ fun ShowScreen(
                         date = showState.discoverShowList[index].first_air_date,
                         percentage = showState.discoverShowList[index].vote_average.toFloat()/10,
                         height = 250.dp,
-                        width = 150.dp
+                        width = 150.dp,
+                        id = showState.discoverShowList[index].id,
+                        navController = navController
                     )
                     if(index >= showState.discoverShowList.size-1 && !showState.isLoading){
                         showViewModel.onEvent(ShowEvents.Paginate(Type.DISCOVER))

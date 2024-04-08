@@ -1,7 +1,6 @@
 package com.example.movix.movie_list.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -15,13 +14,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.movix.movie_list.presentation.home.HomeScreen
 import com.example.movix.movie_list.presentation.home.HomeViewModel
-import com.example.movix.movie_list.presentation.home.components.BottomNavigationBar
-import com.example.movix.movie_list.presentation.home.components.Header
+import com.example.movix.core.presentation.components.BottomNavigationBar
+import com.example.movix.core.presentation.components.Header
+import com.example.movix.details.presentation.DetailsScreen
 import com.example.movix.movie_list.presentation.movie.MovieScreen
 import com.example.movix.movie_list.presentation.show.ShowScreen
 import com.example.movix.ui.theme.Maastricht_Blue
@@ -70,6 +72,7 @@ class MainActivity : ComponentActivity() {
                                         .background(Maastricht_Blue),
                                     homeState = homeState,
                                     homeViewModel = viewModel,
+                                    navController = navController
                                 )
                             }
                             composable("Movie"){
@@ -77,16 +80,26 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .background(Maastricht_Blue),
-                                    homeState = homeState,
-                                    onEvent = viewModel::onEvent
+                                    navController = navController
                                 )
                             }
                             composable("Show"){
                                 ShowScreen(
                                     modifier = Modifier
                                         .fillMaxSize()
-                                        .background(Maastricht_Blue)
+                                        .background(Maastricht_Blue),
+                                    navController = navController
                                 )
+                            }
+
+                            composable(
+                                route = "Details" + "/{category}" + "/{id}",
+                                arguments = listOf(
+                                    navArgument("category"){type = NavType.StringType},
+                                    navArgument("id"){type = NavType.IntType}
+                                )
+                            ){
+                                DetailsScreen()
                             }
                         }
                     }

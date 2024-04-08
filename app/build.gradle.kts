@@ -98,4 +98,7 @@ dependencies {
 
     // system UI Controller
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+
+    // youtube video player
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
 }

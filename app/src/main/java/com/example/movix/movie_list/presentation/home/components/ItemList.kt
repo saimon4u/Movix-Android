@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.movix.movie_list.domain.model.Movie
 import com.example.movix.movie_list.domain.model.Show
 import com.example.movix.movie_list.domain.util.Category
@@ -33,7 +35,8 @@ fun ItemList(
     homeState: HomeState,
     topic: String,
     homeViewModel: HomeViewModel,
-    onEvent: (HomeEvents) -> Unit
+    onEvent: (HomeEvents) -> Unit,
+    navController: NavHostController
 ) {
 
     when(topic){
@@ -45,7 +48,8 @@ fun ItemList(
                     topic = topic,
                     homeViewModel = homeViewModel,
                     homeState = homeState,
-                    onEvent = onEvent
+                    onEvent = onEvent,
+                    navController = navController
                 )
             }else{
                 LoadShows(
@@ -54,7 +58,8 @@ fun ItemList(
                     topic = topic,
                     homeViewModel = homeViewModel,
                     homeState = homeState,
-                    onEvent = onEvent
+                    onEvent = onEvent,
+                    navController = navController
                 )
             }
         }
@@ -66,7 +71,8 @@ fun ItemList(
                     topic = topic,
                     homeViewModel = homeViewModel,
                     homeState = homeState,
-                    onEvent = onEvent
+                    onEvent = onEvent,
+                    navController = navController
                 )
             }else{
                 LoadShows(
@@ -75,7 +81,8 @@ fun ItemList(
                     topic = topic,
                     homeViewModel = homeViewModel,
                     homeState = homeState,
-                    onEvent = onEvent
+                    onEvent = onEvent,
+                    navController = navController
                 )
             }
         }
@@ -90,12 +97,14 @@ fun LoadMovies(
     topic: String,
     homeViewModel: HomeViewModel,
     homeState: HomeState,
-    onEvent: (HomeEvents) -> Unit
+    onEvent: (HomeEvents) -> Unit,
+    navController: NavHostController
 ){
     if (list.isEmpty()) {
         Box(
             modifier = modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(start = 100.dp),
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator()
@@ -136,7 +145,10 @@ fun LoadMovies(
                     imgPath = list[index].poster_path,
                     title = list[index].title,
                     date = list[index].release_date,
-                    percentage = list[index].vote_average.toFloat()/10
+                    percentage = list[index].vote_average.toFloat()/10,
+                    id = list[index].id,
+                    navController = navController,
+                    category = Category.MOVIE
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 if(topic == Type.POPULAR){
@@ -160,12 +172,14 @@ fun LoadShows(
     topic: String,
     homeViewModel: HomeViewModel,
     homeState: HomeState,
-    onEvent: (HomeEvents) -> Unit
+    onEvent: (HomeEvents) -> Unit,
+    navController: NavHostController
     ){
     if (list.isEmpty()) {
         Box(
             modifier = modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(start = 100.dp),
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator()
@@ -206,7 +220,10 @@ fun LoadShows(
                     imgPath = list[index].poster_path,
                     title = list[index].name,
                     date = list[index].first_air_date,
-                    percentage = list[index].vote_average.toFloat()/10
+                    percentage = list[index].vote_average.toFloat()/10,
+                    id = list[index].id,
+                    navController = navController,
+                    category = Category.SHOW
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 if(topic == Type.POPULAR){

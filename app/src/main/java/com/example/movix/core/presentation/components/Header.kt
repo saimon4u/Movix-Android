@@ -1,4 +1,4 @@
-package com.example.movix.movie_list.presentation.home.components
+package com.example.movix.core.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

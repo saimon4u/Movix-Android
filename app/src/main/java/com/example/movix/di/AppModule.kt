@@ -1,6 +1,7 @@
 package com.example.movix.di
 import android.app.Application
 import androidx.room.Room
+import com.example.movix.details.data.remote.DetailsApi
 import com.example.movix.movie_list.data.local.Database
 import com.example.movix.movie_list.data.remote.Api
 import dagger.Module
@@ -44,5 +45,16 @@ object AppModule{
             Database::class.java,
             "Database.db"
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun proviesDetailsApi(): DetailsApi{
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(DetailsApi.BASE_URL)
+            .client(client)
+            .build()
+            .create(DetailsApi::class.java)
     }
 }

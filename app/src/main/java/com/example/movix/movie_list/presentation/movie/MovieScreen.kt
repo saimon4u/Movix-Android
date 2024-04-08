@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.movix.movie_list.domain.util.Category
 import com.example.movix.movie_list.domain.util.Type
 import com.example.movix.movie_list.presentation.home.HomeEvents
@@ -34,8 +36,7 @@ import com.example.movix.movie_list.presentation.movie.components.TopSection
 @Composable
 fun MovieScreen(
     modifier: Modifier,
-    homeState: HomeState,
-    onEvent: (HomeEvents) -> Unit
+    navController: NavHostController
 ){
 
     val configuration = LocalConfiguration.current
@@ -90,7 +91,9 @@ fun MovieScreen(
                         date = movieState.discoverMovieList[index].release_date,
                         percentage = movieState.discoverMovieList[index].vote_average.toFloat()/10,
                         height = 250.dp,
-                        width = 150.dp
+                        width = 150.dp,
+                        navController = navController,
+                        id = movieState.discoverMovieList[index].id
                     )
                     if(index >= movieState.discoverMovieList.size-1 && !movieState.isLoading){
                         movieViewModel.onEvent(MovieEvents.Paginate(Type.DISCOVER))

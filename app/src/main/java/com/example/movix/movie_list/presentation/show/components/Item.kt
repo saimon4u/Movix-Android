@@ -1,7 +1,7 @@
 package com.example.movix.movie_list.presentation.show.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,18 +21,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.example.movix.R
 import com.example.movix.movie_list.data.remote.Api
-import com.example.movix.movie_list.presentation.home.components.CircularProgressBar
-import com.example.movix.ui.theme.Maastricht_Blue
+import com.example.movix.core.presentation.components.CircularProgressBar
+import com.example.movix.movie_list.domain.util.Category
 
 @Composable
 fun Item(
@@ -41,7 +42,9 @@ fun Item(
     date: String,
     percentage: Float,
     height: Dp,
-    width: Dp
+    width: Dp,
+    id: Int,
+    navController: NavHostController
 ) {
     val imgState = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
@@ -54,6 +57,9 @@ fun Item(
         modifier = Modifier
             .height(height)
             .width(width)
+            .clickable {
+                navController.navigate("Details" + "/${Category.SHOW}" + "/${id}")
+            }
     ){
         Column(
             modifier = Modifier
@@ -98,7 +104,7 @@ fun Item(
                     start = 10.dp
                 )
         ){
-            CircularProgressBar(percentage = percentage)
+            CircularProgressBar(percentage = percentage, bgColor = Color.White, textColor = Color.Black, textSize = 10.sp)
         }
 
         Text(

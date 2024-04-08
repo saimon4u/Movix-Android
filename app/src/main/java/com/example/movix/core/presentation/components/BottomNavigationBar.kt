@@ -1,4 +1,4 @@
-package com.example.movix.movie_list.presentation.home.components
+package com.example.movix.core.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Tv
-import androidx.compose.material.icons.rounded.Upcoming
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar

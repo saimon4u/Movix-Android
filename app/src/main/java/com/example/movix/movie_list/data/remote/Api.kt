@@ -9,14 +9,14 @@ import retrofit2.http.Query
 interface Api {
     @GET("movie/{type}")
     suspend fun getMovieList(
-        @Path("type") category: String,
+        @Path("type") type: String,
         @Query("page") page: Int,
         @Query("api_key") apiKey: String = API_KEY
     ): MovieListDto
 
     @GET("tv/{type}")
     suspend fun getShowList(
-        @Path("type") category: String,
+        @Path("type") type: String,
         @Query("page") page: Int,
         @Query("api_key") apiKey: String = API_KEY
     ): ShowListDto

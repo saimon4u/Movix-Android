@@ -1,6 +1,7 @@
 package com.example.movix.movie_list.presentation.home.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
@@ -21,11 +22,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.example.movix.R
+import com.example.movix.core.presentation.components.CircularProgressBar
 import com.example.movix.movie_list.data.remote.Api
 
 @Composable
@@ -33,7 +37,10 @@ fun Item(
     imgPath: String,
     title: String,
     date: String,
-    percentage: Float
+    percentage: Float,
+    id: Int,
+    navController: NavHostController,
+    category: String
 ){
     val imgState = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
@@ -46,6 +53,9 @@ fun Item(
         modifier = Modifier
             .height(220.dp)
             .width(120.dp)
+            .clickable {
+                navController.navigate("Details" + "/${category}" + "/${id}")
+            }
     ){
         Column(
             modifier = Modifier
@@ -90,7 +100,7 @@ fun Item(
                     start = 10.dp
                 )
         ){
-            CircularProgressBar(percentage = percentage)
+            CircularProgressBar(percentage = percentage, bgColor = Color.White, textColor = Color.Black, textSize = 10.sp)
         }
 
         Text(
