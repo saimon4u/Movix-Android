@@ -80,7 +80,6 @@ class HomeViewModel @Inject constructor(
                                 )
                             }
                             getPopular(false, Category.SHOW)
-//                            Log.e("TAG", "Popular Show Clicked" )
                         }else{
                             _homeState.update {
                                 it.copy(
@@ -89,7 +88,6 @@ class HomeViewModel @Inject constructor(
                                 )
                             }
                             getRated(false, Category.SHOW)
-//                            Log.e("TAG", "Rated Show Clicked" )
                         }
                     }
                     Category.MOVIE->{
@@ -101,7 +99,6 @@ class HomeViewModel @Inject constructor(
                                 )
                             }
                             getPopular(false, Category.MOVIE)
-//                            Log.e("TAG", "Popular Movie Clicked" )
                         }else{
                             _homeState.update {
                                 it.copy(
@@ -110,7 +107,6 @@ class HomeViewModel @Inject constructor(
                                 )
                             }
                             getRated(false, Category.MOVIE)
-//                            Log.e("TAG", "Rated Movie Clicked" )
                         }
                     }
                 }

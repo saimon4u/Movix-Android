@@ -3,7 +3,6 @@ package com.example.movix.movie_list.presentation.movie
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movix.movie_list.domain.repository.Repository
-import com.example.movix.movie_list.domain.util.Category
 import com.example.movix.movie_list.domain.util.Resource
 import com.example.movix.movie_list.domain.util.Type
 import dagger.hilt.android.lifecycle.HiltViewModel

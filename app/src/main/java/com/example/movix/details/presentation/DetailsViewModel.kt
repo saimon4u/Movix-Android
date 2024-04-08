@@ -34,9 +34,142 @@ class DetailsViewModel @Inject constructor(
         if(contentCategory == "movie"){
             getMovieDetails(id!!)
             getCredits(id)
+            getVideos(id)
+            getSimilar(id)
         }else{
             getShowDetails(id!!)
             getCredits(id)
+            getVideos(id)
+            getSimilar(id)
+        }
+    }
+
+    fun onEvent(event: DetailsEvents){
+        when(event){
+            is DetailsEvents.Navigate -> {
+
+            }
+            is DetailsEvents.Play -> {
+                _detailsState.update {
+                    it.copy(
+                        isPlaying = true,
+                        videoId = event.videoKey
+                    )
+                }
+            }
+
+            is DetailsEvents.Close -> {
+                _detailsState.update {
+                    it.copy(
+                        isPlaying = false,
+                        videoId = ""
+                    )
+                }
+            }
+        }
+    }
+
+    private fun getSimilar(id: Int) {
+        viewModelScope.launch {
+            _detailsState.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+
+            if(contentCategory == Category.MOVIE){
+                repository.getSimilarMovies(id).collectLatest {result->
+                    when(result){
+                        is Resource.Error -> {
+                            _detailsState.update {
+                                it.copy(
+                                    isLoading = false
+                                )
+                            }
+                        }
+                        is Resource.Loading -> {
+                            _detailsState.update {
+                                it.copy(
+                                    isLoading = result.isLoading
+                                )
+                            }
+                        }
+                        is Resource.Success -> {
+                            _detailsState.update {
+                                it.copy(
+                                    similarMovies = result.data ?: emptyList()
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                repository.getSimilarShows(id).collectLatest {result->
+                    when(result){
+                        is Resource.Error -> {
+                            _detailsState.update {
+                                it.copy(
+                                    isLoading = false
+                                )
+                            }
+                        }
+                        is Resource.Loading -> {
+                            _detailsState.update {
+                                it.copy(
+                                    isLoading = result.isLoading
+                                )
+                            }
+                        }
+                        is Resource.Success -> {
+                            _detailsState.update {
+                                it.copy(
+                                    similarShows = result.data ?: emptyList()
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getVideos(id: Int) {
+        viewModelScope.launch {
+            _detailsState.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+            
+            repository.getVideos(
+                category = contentCategory!!,
+                id = id
+            ).collectLatest { result->
+                when(result){
+                    is Resource.Error -> {
+                        _detailsState.update { 
+                            it.copy(
+                                isLoading = false
+                            )
+                        }
+                    }
+                    is Resource.Loading -> {
+                        _detailsState.update { 
+                            it.copy(
+                                isLoading = result.isLoading
+                            )
+                        }
+                    }
+                    is Resource.Success -> {
+                        _detailsState.update { 
+                            it.copy(
+                                videoList = result.data ?: emptyList()
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 

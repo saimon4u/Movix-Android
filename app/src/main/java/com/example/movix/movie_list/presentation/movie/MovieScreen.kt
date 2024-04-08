@@ -1,7 +1,6 @@
 package com.example.movix.movie_list.presentation.movie
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,21 +14,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.example.movix.movie_list.domain.util.Category
 import com.example.movix.movie_list.domain.util.Type
-import com.example.movix.movie_list.presentation.home.HomeEvents
-import com.example.movix.movie_list.presentation.home.HomeState
 import com.example.movix.movie_list.presentation.movie.components.Item
 import com.example.movix.movie_list.presentation.movie.components.TopSection
 
@@ -103,4 +95,3 @@ fun MovieScreen(
         }
     }
 }
-

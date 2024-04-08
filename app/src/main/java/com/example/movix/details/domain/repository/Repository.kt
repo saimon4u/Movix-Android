@@ -4,6 +4,9 @@ import com.example.movix.details.domain.model.Cast
 import com.example.movix.details.domain.model.Crew
 import com.example.movix.details.domain.model.MovieDetails
 import com.example.movix.details.domain.model.ShowDetails
+import com.example.movix.details.domain.model.SimilarMovie
+import com.example.movix.details.domain.model.SimilarShow
+import com.example.movix.details.domain.model.Video
 import com.example.movix.movie_list.domain.util.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +16,6 @@ interface Repository {
         category: String,
         id: Int
     ): Flow<Resource<List<Crew>>>
-
 
     suspend fun getCasts(
         category: String,
@@ -28,4 +30,16 @@ interface Repository {
         id: Int
     ): Flow<Resource<ShowDetails>>
 
+    suspend fun getVideos(
+        category: String,
+        id: Int
+    ): Flow<Resource<List<Video>>>
+
+    suspend fun getSimilarMovies(
+        id: Int
+    ): Flow<Resource<List<SimilarMovie>>>
+
+    suspend fun getSimilarShows(
+        id: Int
+    ): Flow<Resource<List<SimilarShow>>>
 }

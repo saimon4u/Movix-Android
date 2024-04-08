@@ -1,6 +1,5 @@
 package com.example.movix.movie_list.data.repository
 
-import android.util.Log
 import com.example.movix.movie_list.data.local.Database
 import com.example.movix.movie_list.data.mappers.toMovie
 import com.example.movix.movie_list.data.mappers.toMovieEntity
@@ -65,8 +64,6 @@ class RepositoryImpl @Inject constructor(
                     movieDto.toMovieEntity(type)
                 }
             }
-
-//            Log.e("TAG", movieEntities.size.toString() )
 
             database.dao.upsertMovieList(movieEntities)
 

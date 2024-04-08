@@ -11,7 +11,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.movix.movie_list.domain.util.Type
 import com.example.movix.movie_list.presentation.home.components.AppInfo
@@ -69,7 +68,7 @@ fun HomeScreen(
             onEvent = homeViewModel::onEvent,
             navController = navController
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
         AppInfo(
             modifier = Modifier

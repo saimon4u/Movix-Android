@@ -99,7 +99,7 @@ class MainActivity : ComponentActivity() {
                                     navArgument("id"){type = NavType.IntType}
                                 )
                             ){
-                                DetailsScreen()
+                                DetailsScreen(navController)
                             }
                         }
                     }

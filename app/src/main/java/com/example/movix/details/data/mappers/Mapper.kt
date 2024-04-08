@@ -4,10 +4,16 @@ import com.example.movix.details.data.remote.response.credits.CastDto
 import com.example.movix.details.data.remote.response.credits.CrewDto
 import com.example.movix.details.data.remote.response.details.movie.MovieDetailsDto
 import com.example.movix.details.data.remote.response.details.show.ShowDetailsDto
+import com.example.movix.details.data.remote.response.videos.VideoDto
 import com.example.movix.details.domain.model.Cast
 import com.example.movix.details.domain.model.Crew
 import com.example.movix.details.domain.model.MovieDetails
 import com.example.movix.details.domain.model.ShowDetails
+import com.example.movix.details.domain.model.SimilarMovie
+import com.example.movix.details.domain.model.SimilarShow
+import com.example.movix.details.domain.model.Video
+import com.example.movix.details.data.remote.response.similar.movie.MovieDto
+import com.example.movix.details.data.remote.response.similar.show.ShowDto
 
 
 fun CrewDto.toCrew(): Crew {
@@ -85,5 +91,60 @@ fun ShowDetailsDto.toShowDetails(): ShowDetails{
         tagline = tagline ?: "",
         vote_average = vote_average ?: 0.0,
         vote_count = vote_count ?: -1
+    )
+}
+
+
+fun VideoDto.toVideo(): Video{
+    return Video(
+        id = id ?: "",
+        iso_3166_1 = iso_3166_1 ?: "",
+        iso_639_1 = iso_639_1 ?: "",
+        key = key ?: "",
+        name = name ?: "",
+        official = official ?: false,
+        published_at = published_at ?: "",
+        site = site ?: "",
+        size = size ?: -1,
+        type = type ?: ""
+    )
+}
+
+fun MovieDto.toSimilarMovie(): SimilarMovie{
+    return SimilarMovie(
+        adult = adult ?: false,
+        backdrop_path = backdrop_path ?: "",
+        genre_ids = genre_ids ?: listOf(-1, -2),
+        id = id ?: -1,
+        original_language = original_language ?: "",
+        original_title = original_title ?: "",
+        overview = overview ?: "",
+        popularity = popularity ?: 0.0,
+        poster_path = poster_path ?: "",
+        release_date = release_date ?: "",
+        title = title ?: "",
+        video = video ?: false,
+        vote_average = vote_average ?: 0.0,
+        vote_count = vote_count ?: -1
+    )
+}
+
+
+fun ShowDto.toSimilarShow(): SimilarShow{
+    return SimilarShow(
+        adult = adult ?: false,
+        backdrop_path = backdrop_path ?: "",
+        genre_ids = genre_ids ?: listOf(-1, -2),
+        id = id ?: -1,
+        original_language = original_language ?: "",
+        overview = overview ?: "",
+        popularity = popularity ?: 0.0,
+        poster_path = poster_path ?: "",
+        vote_average = vote_average ?: 0.0,
+        vote_count = vote_count ?: -1,
+        first_air_date = first_air_date ?: "",
+        name = name ?: "",
+        origin_country = origin_country ?: listOf("", ""),
+        original_name = original_name ?: ""
     )
 }
