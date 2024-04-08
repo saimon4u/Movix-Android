@@ -152,16 +152,15 @@ fun DetailsScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    Row (
+                    LazyRow (
                         modifier = Modifier
                             .padding(
                                 horizontal = 20.dp
                             )
                     ){
-                        for(i in genreIds!!){
-
+                        items(genreIds!!.size){index ->
                             GenreHolder(
-                                text = if(detailsState.category == Category.MOVIE) movieGenreMap[i] ?: "" else showGenreMap[i] ?: ""
+                                text = if(detailsState.category == Category.MOVIE) movieGenreMap[genreIds[index]] ?: "" else showGenreMap[genreIds[index]] ?: ""
                             )
 
                             Spacer(modifier = Modifier.width(10.dp))
