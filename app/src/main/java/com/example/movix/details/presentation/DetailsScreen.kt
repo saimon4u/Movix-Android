@@ -1,5 +1,6 @@
 package com.example.movix.details.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -97,13 +99,15 @@ fun DetailsScreen(
 
     if(imgPath != null && title != null && tagline != null) isDataAvailable = true
 
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
     ){
         if(detailsState.isPlaying){
             YouTubeScreen(
-                videoId = detailsState.videoList[0].key,
+                videoId = detailsState.videoId,
                 onEvent = detailsViewModel::onEvent
             )
         }else{
@@ -189,7 +193,12 @@ fun DetailsScreen(
                             modifier = Modifier
                                 .wrapContentSize()
                                 .clickable {
-                                    detailsViewModel.onEvent(DetailsEvents.Play(detailsState.videoId))
+                                    if (detailsState.videoList.isEmpty()) {
+                                        Toast.makeText(context, "Can't Find Any Trailer. Sorry!", Toast.LENGTH_SHORT).show()
+                                    }
+                                    else{
+                                        detailsViewModel.onEvent(DetailsEvents.Play(detailsState.videoList[0].key))
+                                    }
                                 }
                                 .padding(
                                     top = 10.dp

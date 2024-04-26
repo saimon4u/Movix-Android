@@ -51,7 +51,7 @@ fun VideoHolder(
                 .height(120.dp)
                 .width(200.dp)
                 .clickable {
-                           onEvent(DetailsEvents.Play(video.key))
+                      onEvent(DetailsEvents.Play(video.key))
                 },
             contentAlignment = Alignment.Center
         ){
